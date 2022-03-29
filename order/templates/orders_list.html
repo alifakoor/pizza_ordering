@@ -21,9 +21,19 @@
 					<tr>
 						<th>{{ order.id }}</th>
 						<td>{{ order.title }}</td>
-						<td>{{ order.size }}</td>
+						<td>{{ order.get_size_display }}</td>
 						<td>{{ order.quantity }}</td>
-						<td>{{ order.status }}</td>
+						<td>
+							{% if order.status == "r" %}
+								<span class="badge bg-secondary">{{ order.get_status_display }}</span>
+							{% elif order.status == "p" %}
+								<span class="badge bg-warning text-dark">{{ order.get_status_display }}</span>
+							{% elif order.status == "d" %}
+								<span class="badge bg-success text-dark">{{ order.get_status_display }}</span>
+							{% else %}
+								<span class="badge bg-danger text-dark">Not Specificed!</span>
+							{% endif %}
+						</td>
 						<td>{{ order.created_at }}</td>
 						<td>
 							{% if order.delivered_at is not None %}
@@ -33,9 +43,6 @@
 							{% endif %}
 						</td>
 						<td>
-							<a href="{% url 'orders.detail' pk=order.id %}" class="btn btn-primary">
-								Detail
-							</a>
 							<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">
 								Cancel
 							</a>

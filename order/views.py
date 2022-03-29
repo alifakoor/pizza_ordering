@@ -15,6 +15,7 @@ class OrdersListView(LoginRequiredMixin, ListView):
     login_url = "/login"
 
     def get_queryset(self):
+
         return self.request.user.orders.all()
 
 
@@ -47,5 +48,6 @@ class OrdersUpdateView(UpdateView):
 
 class OrdersDeleteView(DeleteView):
     model = Order
+    context_object_name = "order"
     success_url = '/orders'
-    template_name = 'orders_delete.html'
+    template_name = 'order_delete.html'

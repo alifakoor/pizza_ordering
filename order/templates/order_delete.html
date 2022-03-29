@@ -4,7 +4,7 @@
 {% block content %}
 	<form method="post">
 		{% csrf_token %}
-		<p>Are you sure you want to delete "{{ orders.title }}"?</p>
+		<p>Are you sure you want to delete "{{ order.title }}"?</p>
 		<p>This action can't be undone.</p>
 		<input type="submit" class="btn btn-danger" value="Confirm">
 	</form>
