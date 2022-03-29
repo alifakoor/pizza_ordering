@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form method="post" style="text-align: left; margin: 0 auto; width: 600px;">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Register" class="btn btn-primary" name='submit'>
+	</form>
+{% endblock %}

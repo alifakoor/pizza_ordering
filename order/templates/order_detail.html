@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends "base.html" %} 
+
+{% block content %}
+<div class="border rounded">
+    <h1 class="my-5">{{order.title}}</h1>
+    <p>{{order.quantity}}</p>
+</div>
+
+<a href="{% url 'orders.list' %}" class="btn btn-secondary my-5">Back</a>
+<a href="{% url 'orders.update' pk=order.id %}" class="btn btn-primary">Edit</a>
+<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">Delete</a>
+{% endblock %}

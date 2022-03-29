@@ -1,0 +1,48 @@
+{% extends "base.html" %} 
+
+{% block content %}
+	<h1>These are your orders:</h1>
+	<div class="row row-cols3 g-2">
+		<table class="table">
+			<thead>
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Size</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Status</th>
+				<th scope="col">Created At</th>
+				<th scope="col">Delivered At</th>
+				<th scope="col">Actions</th>
+			  </tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+					<tr>
+						<th>{{ order.id }}</th>
+						<td>{{ order.title }}</td>
+						<td>{{ order.size }}</td>
+						<td>{{ order.quantity }}</td>
+						<td>{{ order.status }}</td>
+						<td>{{ order.created_at }}</td>
+						<td>
+							{% if order.delivered_at is not None %}
+								<span class="badge badge-warning">{{ order.delivered_at }}</span>
+							{% else %}
+								<span class="badge bg-warning text-dark">Future!</span>
+							{% endif %}
+						</td>
+						<td>
+							<a href="{% url 'orders.detail' pk=order.id %}" class="btn btn-primary">
+								Detail
+							</a>
+							<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">
+								Cancel
+							</a>
+						</td>
+				  	</tr>
+				{% endfor %}
+			</tbody>
+		  </table>
+	</div>
+{% endblock %}

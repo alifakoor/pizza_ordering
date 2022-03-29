@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+
+{% block content %}
+	<div class="row">
+		<div class="col-4"></div>
+		<div class="col-4">
+			<form method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" class="btn btn-primary my-5">Submit</button>
+				<a href="{% url 'orders.list' %}" class="btn btn-secondary my-5">Cancel</a>
+			</form>
+		</div>
+		<div class="col-4"></div>
+	</div>
+
+	{% if form.errors %}
+		<div class="alert alert-danger my-5">
+			{{ form.errors.title.as_text }}
+		</div>
+	{% endif %}
+{% endblock %}
