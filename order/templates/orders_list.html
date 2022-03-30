@@ -36,7 +36,9 @@
 									<span class="badge bg-danger text-dark">Not Specificed!</span>
 								{% endif %}
 							</td>
-							<td>{{ order.created_at }}</td>
+							<td>
+								<span class="badge bg-secondary">{{ order.created_at }}</span>
+							</td>
 							<td>
 								<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">
 									Cancel
@@ -65,6 +67,7 @@
 					<th scope="col">Quantity</th>
 					<th scope="col">Status</th>
 					<th scope="col">Created At</th>
+					<th scope="col">Is Ready In</th>
 				  </tr>
 				</thead>
 				<tbody>
@@ -87,6 +90,19 @@
 							</td>
 							<td>
 								<span class="badge bg-secondary">{{ order.created_at }}</span>
+							</td>
+							<td>
+								<span class="badge bg-warning text-dark">
+									{% if order.size == "s" %}
+										{% widthratio order.quantity 1 15 %} Minutes
+									{% elif order.size == "m" %}
+										{% widthratio order.quantity 1 30 %} Minutes
+									{% elif order.size == "l" %}
+										{% widthratio order.quantity 1 45 %} Minutes
+									{% else %}
+										1 Century !
+									{% endif %}
+								</span>
 							</td>
 						  </tr>
 					{% endfor %}
