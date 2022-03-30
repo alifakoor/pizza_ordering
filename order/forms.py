@@ -13,9 +13,14 @@ class OrdersForm(ModelForm):
 			'quantity': NumberInput(attrs={'class': 'form-control'})
 		}
 	
-	# def clean_title(self):
-	# 	# title = self.cleaned_data['title']
-	# 	# if 'Django' not in title:
-	# 	# 	raise ValidationError('We only accept notes about Django!')
-	# 	# return title
-	# 	pass
+	def clean_quantity(self):
+		size = self.cleaned_data['size']
+		if size not in Order.SIZE_OPTIONS:
+			raise ValidationError('We only have 3 sizes!')
+		return size
+
+	def clean_quantity(self):
+		quantity = self.cleaned_data['quantity']
+		if quantity <= 0:
+			raise ValidationError('You must order at least 1 quantity.')
+		return quantity

@@ -15,8 +15,11 @@ class OrdersListView(LoginRequiredMixin, ListView):
     login_url = "/login"
 
     def get_queryset(self):
-
-        return self.request.user.orders.all()
+        orders = self.request.user.orders.all()
+        received = orders.filter(status__exact='r')
+        preparing = orders.filter(status__exact='p')
+        delivered = orders.filter(status__exact='d')
+        return {"received": received, "preparing": preparing, "delivered": delivered}
 
 
 class OrdersDetailView(DetailView):
@@ -35,7 +38,6 @@ class OrdersCreateView(CreateView):
         self.object = form.save(commit=False)
         self.object.customer = self.request.user
         self.object.status = "r"
-        self.object.created_at = datetime.now()
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 

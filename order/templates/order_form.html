@@ -14,9 +14,19 @@
 		<div class="col-4"></div>
 	</div>
 
-	{% if form.errors %}
-		<div class="alert alert-danger my-5">
+	{% if form.errors.title %}
+		<div class="alert alert-danger">
 			{{ form.errors.title.as_text }}
+		</div>
+	{% endif %}
+	{% if form.errors.size %}
+		<div class="alert alert-danger">
+			{{ form.errors.size.as_text }}
+		</div>
+	{% endif %}
+	{% if form.errors.quantity %}
+		<div class="alert alert-danger">
+			{{ form.errors.quantity.as_text }}
 		</div>
 	{% endif %}
 {% endblock %}

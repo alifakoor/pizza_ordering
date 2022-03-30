@@ -1,55 +1,151 @@
 {% extends "base.html" %} 
 
 {% block content %}
-	<h1>These are your orders:</h1>
-	<div class="row row-cols3 g-2">
-		<table class="table">
-			<thead>
-			  <tr>
-				<th scope="col">#</th>
-				<th scope="col">Title</th>
-				<th scope="col">Size</th>
-				<th scope="col">Quantity</th>
-				<th scope="col">Status</th>
-				<th scope="col">Created At</th>
-				<th scope="col">Delivered At</th>
-				<th scope="col">Actions</th>
-			  </tr>
-			</thead>
-			<tbody>
-				{% for order in orders %}
-					<tr>
-						<th>{{ order.id }}</th>
-						<td>{{ order.title }}</td>
-						<td>{{ order.get_size_display }}</td>
-						<td>{{ order.quantity }}</td>
-						<td>
-							{% if order.status == "r" %}
-								<span class="badge bg-secondary">{{ order.get_status_display }}</span>
-							{% elif order.status == "p" %}
-								<span class="badge bg-warning text-dark">{{ order.get_status_display }}</span>
-							{% elif order.status == "d" %}
-								<span class="badge bg-success text-dark">{{ order.get_status_display }}</span>
-							{% else %}
-								<span class="badge bg-danger text-dark">Not Specificed!</span>
-							{% endif %}
-						</td>
-						<td>{{ order.created_at }}</td>
-						<td>
-							{% if order.delivered_at is not None %}
-								<span class="badge badge-warning">{{ order.delivered_at }}</span>
-							{% else %}
-								<span class="badge bg-warning text-dark">Future!</span>
-							{% endif %}
-						</td>
-						<td>
-							<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">
-								Cancel
-							</a>
-						</td>
-				  	</tr>
-				{% endfor %}
-			</tbody>
-		  </table>
+	<div class="card">
+		<div class="card-header">
+			<h1>Received orders:</h1>
+		</div>
+		<div class="card-body">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Size</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Status</th>
+					<th scope="col">Created At</th>
+					<th scope="col">Actions</th>
+				  </tr>
+				</thead>
+				<tbody>
+					{% for order in orders.received %}
+						<tr>
+							<th>{{ order.id }}</th>
+							<td>{{ order.title }}</td>
+							<td>{{ order.get_size_display }}</td>
+							<td>{{ order.quantity }}</td>
+							<td>
+								{% if order.status == "r" %}
+									<span class="badge bg-secondary">{{ order.get_status_display }}</span>
+								{% elif order.status == "p" %}
+									<span class="badge bg-warning text-dark">{{ order.get_status_display }}</span>
+								{% elif order.status == "d" %}
+									<span class="badge bg-success text-dark">{{ order.get_status_display }}</span>
+								{% else %}
+									<span class="badge bg-danger text-dark">Not Specificed!</span>
+								{% endif %}
+							</td>
+							<td>{{ order.created_at }}</td>
+							<td>
+								<a href="{% url 'orders.delete' pk=order.id %}" class="btn btn-danger">
+									Cancel
+								</a>
+							</td>
+						  </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<br>
+
+	<div class="card">
+		<div class="card-header">
+			<h1>Current orders:</h1>
+		</div>
+		<div class="card-body">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Size</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Status</th>
+					<th scope="col">Created At</th>
+				  </tr>
+				</thead>
+				<tbody>
+					{% for order in orders.preparing %}
+						<tr>
+							<th>{{ order.id }}</th>
+							<td>{{ order.title }}</td>
+							<td>{{ order.get_size_display }}</td>
+							<td>{{ order.quantity }}</td>
+							<td>
+								{% if order.status == "r" %}
+									<span class="badge bg-secondary">{{ order.get_status_display }}</span>
+								{% elif order.status == "p" %}
+									<span class="badge bg-warning text-dark">{{ order.get_status_display }}</span>
+								{% elif order.status == "d" %}
+									<span class="badge bg-success text-dark">{{ order.get_status_display }}</span>
+								{% else %}
+									<span class="badge bg-danger text-dark">Not Specificed!</span>
+								{% endif %}
+							</td>
+							<td>
+								<span class="badge bg-secondary">{{ order.created_at }}</span>
+							</td>
+						  </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="card">
+		<div class="card-header">
+			<h1>Delivered orders:</h1>
+		</div>
+		<div class="card-body">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Size</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Status</th>
+					<th scope="col">Created At</th>
+					<th scope="col">Delivered At</th>
+				  </tr>
+				</thead>
+				<tbody>
+					{% for order in orders.delivered %}
+						<tr>
+							<th>{{ order.id }}</th>
+							<td>{{ order.title }}</td>
+							<td>{{ order.get_size_display }}</td>
+							<td>{{ order.quantity }}</td>
+							<td>
+								{% if order.status == "r" %}
+									<span class="badge bg-secondary">{{ order.get_status_display }}</span>
+								{% elif order.status == "p" %}
+									<span class="badge bg-warning text-dark">{{ order.get_status_display }}</span>
+								{% elif order.status == "d" %}
+									<span class="badge bg-success">{{ order.get_status_display }}</span>
+								{% else %}
+									<span class="badge bg-danger text-dark">Not Specificed!</span>
+								{% endif %}
+							</td>
+							<td>
+								<span class="badge bg-secondary">{{ order.created_at }}</span>
+							</td>
+							<td>
+								{% if order.delivered_at is not None %}
+									<span class="badge bg-success">{{ order.delivered_at }}</span>
+								{% else %}
+									<span class="badge bg-warning text-dark">Future!</span>
+								{% endif %}
+							</td>
+						  </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
 {% endblock %}
