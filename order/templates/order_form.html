@@ -2,6 +2,21 @@
 
 {% block content %}
 	<div class="row">
+		{% for pizza in pizzas %}
+			<div class="col-4">
+				<div class="card">
+					<img src="/{{pizza.image}}" class="card-img-top" alt="{{pizza.name}}">
+					<div class="card-body">
+					<h5 class="card-title">{{pizza.name}}</h5>
+					<button type="button" class="btn btn-primary">+</button>
+					<span>0</span>
+					<button type="button" class="btn btn-secondary">-</button>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="row">
 		<div class="col-4"></div>
 		<div class="col-4">
 			<form method="post">

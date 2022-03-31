@@ -45,7 +45,8 @@ INSTALLED_APPS = [
 
     # third party
     'home',
-    'order'
+    'order',
+    'pizza'
 ]
 
 MIDDLEWARE = [

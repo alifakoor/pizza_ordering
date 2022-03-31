@@ -20,4 +20,5 @@ urlpatterns = [
     path('', include('home.urls')),
     path('admin/', admin.site.urls),
     path('orders/', include('order.urls')),
+    path('pizza/', include('pizza.urls')),
 ]

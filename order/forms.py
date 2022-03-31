@@ -6,9 +6,8 @@ from .models import Order
 class OrdersForm(ModelForm):
 	class Meta:
 		model = Order
-		fields = ('title','size', 'quantity')
+		fields = ('size', 'quantity')
 		widgets = {
-			'title': TextInput(attrs={'class': 'form-control'}),
 			'size': Select(attrs={'class': 'form-select'}),
 			'quantity': NumberInput(attrs={'class': 'form-control'})
 		}

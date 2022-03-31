@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from .forms import OrdersForm
 from .models import Order
 
+from pizza.models import Pizza
+
 
 class OrdersListView(LoginRequiredMixin, ListView):
     model = Order
@@ -40,7 +42,11 @@ class OrdersCreateView(CreateView):
         self.object.status = "r"
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pizzas'] = Pizza.objects.all()
+        return context
 
 class OrdersUpdateView(UpdateView):
     model = Order
